@@ -1,0 +1,51 @@
+﻿@model DiceRoller.Models.ProbabilityObjectModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ProbabilityObjectModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ObjectName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ObjectName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfStates)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfStates)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CurrentState)
+        </dd>
+        @* <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StateLabels)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StateLabels)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StateProbabilities)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StateProbabilities)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StateViews)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StateViews)
+        </dd> *@
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

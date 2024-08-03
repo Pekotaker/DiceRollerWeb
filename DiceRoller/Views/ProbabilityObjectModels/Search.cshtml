@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DiceRoller.Models.ProbabilityObjectModel>
+
+@{
+    ViewData["Title"] = "Search results";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ObjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfStates)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Roller" asp-controller="ProbabilityObjectModels" name="id" asp-route-ObjectId="@item.Id">
+                    @Html.DisplayFor(modelItem => item.ObjectName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfStates)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

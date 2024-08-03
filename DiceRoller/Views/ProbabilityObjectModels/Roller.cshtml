@@ -1,0 +1,70 @@
+﻿@model DiceRoller.Models.ProbabilityObjectModel
+@using Microsoft.AspNetCore.Http
+
+@{
+	ViewData["Title"] = "Roller";
+}
+
+<div>
+    <h4>@Model.ObjectName</h4>
+    <hr />
+    <!--Display current roll result-->
+    <div>
+        <h4>Current Roll Result</h4>
+		<h1>
+            @Model.CurrentState
+        </h1>
+    </div>
+    <!--Button for rolling-->
+    <div style="padding: 1px">
+		<form asp-action="Roller" asp-controller="ProbabilityObjectModels" asp-route-ObjectId="@Model.Id">
+			<input type="hidden"/>
+			<input type="submit" value="Roll" class="btn btn-primary" onclick="appendRollResults()" />
+		</form>
+    </div>
+	<!--Button for resetting-->
+	<div style="padding: 1px">
+        <button class="btn btn-primary" onclick="sessionStorage.removeItem(`RollResults${@Model.Id}`)">Reset</button>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<table>
+    <tr>
+		<th>Roll Results</th>
+        <th>Frequency</th>
+        <th>Probability</th>
+	</tr>
+	<script>
+        const sessionItemName = "RollResults" + @Model.Id;
+        let sum = 0;
+		var rollResults = JSON.parse(self.sessionStorage.getItem(sessionItemName));
+        for (item in rollResults) {
+            sum += parseInt(rollResults[item]);
+        }
+		for (item in rollResults) {
+            document.write("<tr><td><b>" + item + "</b></td><td>" + rollResults[item] + "</td><td>" + parseFloat((parseInt(rollResults[item])/sum)*100).toFixed(2) + "%" + "</td></tr>");
+        }
+    </script>
+</table>
+
+
+
+@section Scripts {
+    <script>
+        let ResultsTable = {};
+        for (let i = 1; i < @Model.NumberOfStates + 1; i++) {
+            ResultsTable[i] = 0;
+        }
+            function appendRollResults() {
+            if (!self.sessionStorage.getItem(sessionItemName)) {
+                self.sessionStorage.setItem(sessionItemName, JSON.stringify(ResultsTable));
+			} else {
+                var rollResults = JSON.parse(self.sessionStorage.getItem(sessionItemName));
+				rollResults[@Model.CurrentState] += 1;
+                self.sessionStorage.setItem(sessionItemName, JSON.stringify(rollResults));
+			}
+        }
+    </script>
+}
